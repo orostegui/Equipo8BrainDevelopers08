@@ -42,16 +42,16 @@
 		          			<a class="nav-link active" href="./clientes.jsp">CLIENTES</a>
 		        		</li>
 		        		<li class="nav-item">
-		          			<a class="nav-link" href="#">PROVEEDORES</a>
+		          			<a class="nav-link" href="./proveedores.jsp">PROVEEDORES</a>
 		        		</li>
 		        		<li class="nav-item">
-		          			<a class="nav-link" href="#">PRODUCTOS</a>
+		          			<a class="nav-link" href="./productos.jsp">PRODUCTOS</a>
 		        		</li>
 		        		<li class="nav-item">
-		          			<a class="nav-link" href="#">VENTAS</a>
+		          			<a class="nav-link" href="./ventas.jsp">VENTAS</a>
 		        		</li>
 		        		<li class="nav-item">
-		          			<a class="nav-link" href="#">REPORTES</a>
+		          			<a class="nav-link" href="./reportes.jsp">REPORTES</a>
 		        		</li>
         			</ul>
         			<%=usuario%>,&nbsp;<a href="./logout.jsp">cerrar sesión</a>
@@ -64,7 +64,7 @@
 			    <div class="col-md-8">
 			    	<div class="bg-light table">
 			    		<h2>CLIENTES</h2>
-						<table id="usuarios" class="display" style="width:100%">
+						<table id="clientes" class="display" style="width:100%">
 					        <thead>
 					            <tr>
 					                <th>N° Cédula</th>

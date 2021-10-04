@@ -2,9 +2,9 @@ $(document).ready(function() {
 	
 	$(document).ready(function() {
 		
-	    $('#clientes').DataTable( {
+	    $('#proveedores').DataTable( {
 			ajax: {
-		        url: 'VerClientes',
+		        url: 'VerProveedores',
 		        dataSrc: ''
 		    },
 	        "columns": [
