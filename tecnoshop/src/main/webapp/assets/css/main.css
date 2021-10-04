@@ -1,0 +1,89 @@
+@charset "ISO-8859-1";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap');
+
+html,
+body {
+  height: 100%;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  background-color:#f2f2f2;
+}
+
+a{
+	text-decoration:none;
+	color:#000;
+}
+
+.navbar{
+	background-color:#002E54;
+}
+
+.active{
+	background-color:#002E54;
+	color:#f2f2f2!important;
+}
+
+.no-padding{
+	padding:0;
+}
+
+.nav-link{
+	padding-top:10px;
+	padding-bottom:10px;
+	padding-right: 20px!important;
+	padding-left: 20px!important;
+	font-weight: 500;
+}
+
+.card-user{
+	background-color:#eaeaea;
+	padding:30px;
+	border-radius:10px;
+}
+
+.container{
+	padding:0;
+}
+
+.option-user{
+	background-color:#002E54;
+	color:#f2f2f2;
+	border-radius:5px;
+	margin-right:10px;
+	margin-bottom:10px;
+	padding:20px;
+	transition: .5s;
+	text-align:center;
+}
+
+.option-user:hover{
+	background-color:#f2f2f2;
+	color:#002E54;
+	cursor:pointer;
+	transition: .5s;
+}
+
+.option-user p{
+	margin-top:10px;
+	margin-bottom:0;
+	font-size: 1em;
+	font-weight: 500;
+	line-height:1em;
+}
+
+.sa{
+	--bs-gutter-x: 0;
+}
+
+.left-input{
+	margin-right:20px;
+}
+
+.table{
+	padding:20px 40px;
+	border-radius:5px;
+}
+
+.main-content{
+	padding-top:20px;
+}

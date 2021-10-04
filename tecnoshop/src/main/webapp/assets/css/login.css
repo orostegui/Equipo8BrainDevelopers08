@@ -1,0 +1,69 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap');
+
+html,
+body {
+  height: 100%;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background:url('./../img/bg.png');
+  background-color: #002E54;
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 35px;
+  margin: auto;
+  background-color: #eaeaea;
+  border-radius:.5rem;
+}
+
+.form-signin a {
+	display: block;
+	text-decoration: none;
+	color:#454545;
+}
+
+.form-signin .checkbox {
+  font-weight: 400;
+}
+
+.form-signin .btn-success{
+	background-color: #33CC33;
+	border-color: #33CC33;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type="text"] {
+  margin-bottom: -1px;
+  border-radius: .5rem .5rem 0 0;
+}
+
+.form-signin input[type="password"] {
+	border-radius: 0 0 .5rem .5rem;
+}
+
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+     font-size: 3.5rem;
+  }
+}
