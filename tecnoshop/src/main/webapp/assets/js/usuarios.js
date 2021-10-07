@@ -4,7 +4,9 @@ $(document).ready(function() {
 		
 	    $('#usuarios').DataTable( {
 			ajax: {
-		        url: 'VerUsuarios',
+		        url: 'Usuarios',
+				type: "POST",
+				data:  {'ini':true},
 		        dataSrc: ''
 		    },
 	        "columns": [
@@ -21,106 +23,6 @@ $(document).ready(function() {
 
 });
 
-
-/**
- * FUNCION PARA BORRAR USUARIOS DE LA BASE DE DATOS
- */
-
-$(document).on("click", "#borrar", function() {
-    
-	(async() => {
-	
-		const { value: cc } = await Swal.fire({
-        	title:'<h2>ELIMINAR USUARIO</h2>',
-			html:'<div class="form-floating left-input">'+
-            	'<input type="number" class="form-control" id="cedula" placeholder="Número de cédula">'+
-                '<label for="floatingInput">Número de cédula</label>'+
-            '</div>',
-            confirmButtonText:'ELIMINAR',
-			focusConfirm:false,
-            cancelButtonText:'CANCELAR',
-            confirmButtonColor:'#D33',
-            showCancelButton: true,
-            preConfirm: () => {
-                return document.getElementById('cedula').value
-			}
-        })
-
-        if (cc) {
-        	
-			const data = "cc="+cc;
-                
-			$.post('ConsultarUsuario', data, function(response) {
-                    
-            	if(response[0]=="success"){
-                          
-                	Swal.fire({
-                    	title: '<h2>¿ESTÁS SEGURO DE ELIMINAR?</h2>',
-                        html:'Número de cédula: <b>' + response[1] + '</b><br>'+
-                        	'Email: <b>' + response[2] + '</b><br>' +
-                            'Nombre completo: <b>' + response[3] + '</b><br>' +
-                            'Usuario: <b>' + response[4] + '</b>',
-                        icon: 'warning',
-                        showCancelButton: true,
-                       	confirmButtonText: 'SI, ELIMINAR',
-                        cancelButtonText: 'NO, CANCELAR',
-                        focusCancel: true,
-                        confirmButtonColor: '#d33',
-                        cancelButtonColor: '#6e7d88',
-                        reverseButtons: true
-				    }).then((result) => {
-					
-                        if (result.isConfirmed) {
-	
-                            $.post('EliminarUsuario', data, function(response) {
-                                        
-                                if(response[0]=="success"){
-                                            
-                                    Swal.fire({
-                                        title: '<h2>Eliminado</h2>',
-                                        text:response[1],
-                                        icon:response[0],
-                                        confirmButtonText: 'CERRAR',
-                                        confirmButtonColor: '#6e7d88'
-                                    }).then(() => {
-										window.location="./usuarios.jsp";
-									})
-									
-                                } else {
-                                    
-                                    Swal.fire({
-                                        title: '<h2>Error al eliminar el usuario</h2>',
-                                        text: response[1],
-                                        icon: response[0],
-                                        confirmButtonText: 'CERRAR',
-                                        confirmButtonColor: '#6e7d88'
-                                    })
-                                }
-                            });      
-                        } else if (result.dismiss === Swal.DismissReason.cancel) {
-                            
-                            Swal.fire({
-                                title: '<h2>CANCELADO</h2>',
-                                text:'La eliminación del usuario ha sido cancelada.',
-                                icon:'error',
-                                confirmButtonText: 'CERRAR',
-                                confirmButtonColor: '#6e7d88'	
-                            })
-                        }
-				    })
-                } else {
-                    Swal.fire({
-                        icon:'error',
-                        title:'<h2>Oops...</h2>',
-                        text:'Usuario no encontrado',
-						confirmButtonText:'CERRAR',
-                        confirmButtonColor:'#6e7d88',
-                    })
-                }
-		    });
-	    }
-	})();
-})
 
 /**
  * FUNCION PARA CREAR USUARIOS EN LA BASE DE DATOS
@@ -176,9 +78,9 @@ $(document).on("click", "#crear", function(e) {
 
         if (formValues) {
 
-            const data = "cc="+formValues[0]+"&us="+formValues[1]+"&nc="+formValues[2]+"&em="+formValues[3];
+            const data = "cre="+true+"&cc="+formValues[0]+"&us="+formValues[1]+"&nc="+formValues[2]+"&em="+formValues[3];
 
-            $.post('CrearUsuario', data, function(response) {
+            $.post('Usuarios', data, function(response) {
 	                                    
                 if(response[0]=="success"){
                             
@@ -232,9 +134,9 @@ $(document).on("click", "#editar", function() {
 
         if (cc) {
         	
-			const data = "cc="+cc;
+			const data = "con="+true+"&cc="+cc;
                 
-			$.post('ConsultarUsuario', data, function(response) {
+			$.post('Usuarios', data, function(response) {
                     
             	if(response[0]=="success"){
 	
@@ -274,7 +176,7 @@ $(document).on("click", "#editar", function() {
 				                    '</div>'+
 				                '</div>'+
 								'<div class="col-6">'+
-				                    '<p style="font-size:.8rem;text-align:left;font-weight: 300;line-height:.8rem;">**Dejar contra vacia si no desea actualizarla</p>'+
+				                    '<p style="font-size:.8rem;text-align:left;font-weight: 300;line-height:.8rem;">**Dejar contraseña vacia si no desea actualizarla</p>'+
 				                '</div>'+
 				            '</div>',
 	                        showCancelButton: true,
@@ -296,9 +198,9 @@ $(document).on("click", "#editar", function() {
 						
 						if (formValues) {
 	
-				            const data = "cc="+formValues[0]+"&us="+formValues[1]+"&nc="+formValues[2]+"&em="+formValues[3]+"&pw="+formValues[4];
+				            const data = "edit="+true+"&cc="+formValues[0]+"&us="+formValues[1]+"&nc="+formValues[2]+"&em="+formValues[3]+"&pw="+formValues[4];
 				
-				            $.post('EditarUsuario', data, function(response) {
+				            $.post('Usuarios', data, function(response) {
 					                                    
 				                if(response[0]=="success"){
 				                            
@@ -326,6 +228,110 @@ $(document).on("click", "#editar", function() {
 	
 					})();
                 	
+                } else {
+                    Swal.fire({
+                        icon:'error',
+                        title:'<h2>Oops...</h2>',
+                        text:'Usuario no encontrado',
+						confirmButtonText:'CERRAR',
+                        confirmButtonColor:'#6e7d88',
+                    })
+                }
+		    });
+	    }
+	})();
+})
+
+
+
+/**
+ * FUNCION PARA BORRAR USUARIOS DE LA BASE DE DATOS
+ */
+
+$(document).on("click", "#borrar", function() {
+    
+	(async() => {
+	
+		const { value: cc } = await Swal.fire({
+        	title:'<h2>ELIMINAR USUARIO</h2>',
+			html:'<div class="form-floating left-input">'+
+            	'<input type="number" class="form-control" id="cedula" placeholder="Número de cédula">'+
+                '<label for="floatingInput">Número de cédula</label>'+
+            '</div>',
+            confirmButtonText:'ELIMINAR',
+			focusConfirm:false,
+            cancelButtonText:'CANCELAR',
+            confirmButtonColor:'#D33',
+            showCancelButton: true,
+            preConfirm: () => {
+                return document.getElementById('cedula').value
+			}
+        })
+
+        if (cc) {
+        	
+			const data = "con="+true+"&cc="+cc;
+                
+			$.post('Usuarios', data, function(response) {
+                    
+            	if(response[0]=="success"){
+                          
+                	Swal.fire({
+                    	title: '<h2>¿ESTÁS SEGURO DE ELIMINAR?</h2>',
+                        html:'Número de cédula: <b>' + response[1] + '</b><br>'+
+                        	'Email: <b>' + response[2] + '</b><br>' +
+                            'Nombre completo: <b>' + response[3] + '</b><br>' +
+                            'Usuario: <b>' + response[4] + '</b>',
+                        icon: 'warning',
+                        showCancelButton: true,
+                       	confirmButtonText: 'SI, ELIMINAR',
+                        cancelButtonText: 'NO, CANCELAR',
+                        focusCancel: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#6e7d88',
+                        reverseButtons: true
+				    }).then((result) => {
+					
+                        if (result.isConfirmed) {
+	
+							const del = "del="+true+"&cc="+cc;
+							
+                            $.post('Usuarios', del, function(response) {
+                                        
+                                if(response[0]=="success"){
+                                            
+                                    Swal.fire({
+                                        title: '<h2>ELIMINADO</h2>',
+                                        text:response[1],
+                                        icon:response[0],
+                                        confirmButtonText: 'CERRAR',
+                                        confirmButtonColor: '#6e7d88'
+                                    }).then(() => {
+										window.location="./usuarios.jsp";
+									})
+									
+                                } else {
+                                    
+                                    Swal.fire({
+                                        title: '<h2>Error al eliminar el usuario</h2>',
+                                        text: response[1],
+                                        icon: response[0],
+                                        confirmButtonText: 'CERRAR',
+                                        confirmButtonColor: '#6e7d88'
+                                    })
+                                }
+                            });      
+                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            
+                            Swal.fire({
+                                title: '<h2>CANCELADO</h2>',
+                                text:'La eliminación del usuario ha sido cancelada.',
+                                icon:'error',
+                                confirmButtonText: 'CERRAR',
+                                confirmButtonColor: '#6e7d88'	
+                            })
+                        }
+				    })
                 } else {
                     Swal.fire({
                         icon:'error',

@@ -8,28 +8,11 @@ public class UsuarioDTO {
 	private String password;
 	private String usuario;
 	
-	public UsuarioDTO(long cedula_usuario, String email_usuario, String nombre_usuario, String password,String usuario) {
-		this.cedula_usuario = cedula_usuario;
-		this.email_usuario = email_usuario;
-		this.nombre_usuario = nombre_usuario;
-		this.password = password;
-		this.usuario = usuario;
-	}
-	
 	public UsuarioDTO(long cedula_usuario, String email_usuario, String nombre_usuario, String usuario) {
 		this.cedula_usuario = cedula_usuario;
 		this.email_usuario = email_usuario;
 		this.nombre_usuario = nombre_usuario;
 		this.usuario = usuario;
-	}
-	
-	public UsuarioDTO( String usuario, String password) {
-		this.usuario = usuario;
-		this.password = password;
-	}
-
-	public UsuarioDTO(long cedula_usuario) {
-		this.cedula_usuario = cedula_usuario;
 	}
 	
 	public UsuarioDTO() {

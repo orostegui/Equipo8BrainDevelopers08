@@ -63,12 +63,18 @@
 	        	var $form = $('#form');
 
         	    $.post($form.attr("action"), $form.serialize(), function(response) {
-        	        Toast.fire({
-          			  icon: response[0],
-          			  title: "Iniciando sesión"
-          			})
+        	        
           			if(response[0]=="success"){
+          				Toast.fire({
+                			icon: response[0],
+                			title: "Iniciando sesión"
+                		})
           				setTimeout(function(){ window.location="dashboard.jsp"; }, 3000);
+          			} else {
+          				Toast.fire({
+                			icon: response[0],
+                			title: response[1]
+                		})
           			}
         	    });
 	        	

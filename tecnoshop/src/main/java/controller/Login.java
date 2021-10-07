@@ -45,13 +45,15 @@ public class Login extends HttpServlet {
 
 	    if (ajax) {
 	    	// Objetos para datos e inicio de sesion
-	    	UsuarioDTO userDTO = new UsuarioDTO(user, pass);
+	    	UsuarioDTO userDTO = new UsuarioDTO();
 			UsuarioDAO userDAO = new UsuarioDAO();
 			
 			// Listas para recuperar la respues del DAO y enviar al JSP
 			List<String> list = new ArrayList<>();
 			List<String> res = new ArrayList<>();
 			
+			userDTO.setUsuario(user);
+			userDTO.setPassword(pass);
 			res = userDAO.login(userDTO);
 			
 			list.add(res.get(0));
@@ -59,7 +61,9 @@ public class Login extends HttpServlet {
 			
 			if(res.get(0)=="success") {
 				HttpSession sesion = request.getSession();
-				sesion.setAttribute("usuario", res.get(1));
+				sesion.setAttribute("id", res.get(1));
+				sesion.setAttribute("rol", res.get(2));
+				sesion.setAttribute("usuario", res.get(3));
 			}
 			
 			String json = new Gson().toJson(list);

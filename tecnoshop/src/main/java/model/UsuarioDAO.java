@@ -48,6 +48,8 @@ public class UsuarioDAO {
 					// Si los dos hash de password coinciden, success
 					if(passEncript.equals(passwordDatabase)) {
 						list.add("success");
+						list.add(res.getString(1));
+						list.add(res.getString(2));
 						list.add(res.getString(6));
 					// Password errada
 					} else {

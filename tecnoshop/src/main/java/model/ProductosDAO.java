@@ -9,7 +9,7 @@ import java.util.List;
 
 import controller.Connect;
 
-public class ProveedorDAO {
+public class ProductosDAO {
 	
 	Connect con = new Connect();
 	Connection conec = con.Conecta();
@@ -17,29 +17,29 @@ public class ProveedorDAO {
 	ResultSet res = null;
 	
 	/**
-	 * Listar proveedores, usada para recuperar todos los proveedores registrados
+	 * Listar productos, usada para recuperar todos los productos
 	 * @return ArrayList<ClienteDTO>
 	 */
-	public ArrayList<ProveedorDTO> listar() {
+	public ArrayList<ProductosDTO> listar() {
 		
 		// ArrayList donde se almacenan todos los clientes recuperados
-		ArrayList<ProveedorDTO> proveedores = new ArrayList<ProveedorDTO>();
+		ArrayList<ProductosDTO> productos = new ArrayList<ProductosDTO>();
 		
 		try {
 			// Consulta y ejecucion
-			String sql = "select * from proveedores";
+			String sql = "select * from productos";
 			ps = conec.prepareStatement(sql);
 			res = ps.executeQuery();
 			// Ciclo para almacenar en el ArrayList los clientes
 			while (res.next()) {
-				ProveedorDTO proveedor = new ProveedorDTO(res.getLong("nitproveedor"), res.getString("ciudad_proveedor"), res.getString("direccion_proveedor"), res.getString("nombre_proveedor"), res.getString("telefono_proveedor"));
-				proveedores.add(proveedor);
+				ProductosDTO producto = new ProductosDTO(res.getLong("codigo_producto"), res.getDouble("ivacompra"), res.getLong("nitproveedor"), res.getString("nombre_producto"),res.getDouble("precio_compra"),res.getDouble("precio_venta"));
+				productos.add(producto);
 			}
 		}catch(SQLException e) {
 			// Si hay error en SQL
 		}
 		// Retornamos los clientes
-		return proveedores;
+		return productos;
 	}
 	
 	/**
@@ -110,29 +110,56 @@ public class ProveedorDAO {
 	
 	
 	/**
-	 * Consultar Clientes, usada para recuperar informacion de usuarios
+	 * Cargar productos
 	 * @return List<String>
 	 */
-	public List<String> consultar(ProveedorDTO proveedor) {
+	public List<String> cargar(String Url) {
+		// List para retornar los mensajes
+		List<String> list = new ArrayList<>();
+		
+		// Intento ejecucion SQL
+		try {
+			// Consulta y ejecucion
+			String sql = "load data infile \'"+Url+"\' into table productos fields terminated by \',\' lines terminated by \'\r\\n\'";
+			ps = conec.prepareStatement(sql);
+			// Si inserta usuario, success
+			if(ps.executeUpdate()>0) {	
+				list.add("success");
+				list.add("Productos cargados correctamente");
+				// Error, no encontrado
+			} 
+		// Si hay error en el SQL	
+		}catch(SQLException e) {
+			list.add("error");
+			list.add("Error: "+e);
+		}
+		// Retorno los mensajes
+		return list;
+	}
+	
+	
+	/**
+	 * Consultar productos, usada para recuperar informacion de usuarios
+	 * @return List<String>
+	 */
+	public List<String> consultar(ProductosDTO producto) {
 		// List para retornar los mensajes
 		List<String> list = new ArrayList<>();
 		// Recupero la cedula
-		long nit = proveedor.getNitproveedor();
+		long cod = producto.getCodigo_producto();
 		// Si cedula es 0, completar
-		if(nit==0) {
+		if(cod==0) {
 			list.add("warning");
 			list.add("Complete todos los campos");
-			list.add("");
-			list.add("");
 			list.add("");
 			list.add("");
 		} else {
 			// Intento ejecucion SQL
 			try {
 				// Consulta y ejecucion
-				String sql = "select * from proveedores where nitproveedor = ?";
+				String sql = "select codigo_producto,nombre_producto,precio_venta from productos where codigo_producto = ?";
 				ps = conec.prepareStatement(sql);
-				ps.setLong(1, nit);
+				ps.setLong(1, cod);
 				res = ps.executeQuery();
 				// Si consigue usuario, success
 				if(res.next()) {	
@@ -140,14 +167,10 @@ public class ProveedorDAO {
 					list.add(res.getString(1));
 					list.add(res.getString(2));
 					list.add(res.getString(3));
-					list.add(res.getString(4));
-					list.add(res.getString(5));
 				// Error, no encontrado
 				} else {
 					list.add("error");
-					list.add("Usuario no encontrado");
-					list.add("");
-					list.add("");
+					list.add("Producto no encontrado");
 					list.add("");
 					list.add("");
 				}
@@ -155,8 +178,6 @@ public class ProveedorDAO {
 			}catch(SQLException e) {
 				list.add("error");
 				list.add("Error: "+e);
-				list.add("");
-				list.add("");
 				list.add("");
 				list.add("");
 			}
@@ -170,11 +191,11 @@ public class ProveedorDAO {
 	 * Editar clientes
 	 * @return List<String>
 	 */
-	public List<String> actualizar(ProveedorDTO proveedor) {
+	public List<String> actualizar(ProductosDTO producto) {
 		// Lista para retornas respuestas
 		List<String> list = new ArrayList<>();
 		// Si hay valores vacios, mensaje de completar
-		if(proveedor.getNitproveedor()==0 || proveedor.getCiudad_proveedor().isEmpty() || proveedor.getDireccion_proveedor().isEmpty() || proveedor.getNombre_proveedor().isEmpty() || proveedor.getTelefono_proveedor().isEmpty()) {
+		if(producto.getCodigo_producto()==0 || producto.getNombre_producto().isEmpty() || producto.getPrecio_venta()==0) {
 			// Mensajes
 			list.add("warning");
 			list.add("Complete todos los campos");
@@ -184,22 +205,20 @@ public class ProveedorDAO {
 			// Intentar SQL
 			try {
 				// Consulta y ejecucion
-				sql = "UPDATE `proveedores` SET `ciudad_proveedor` = ?,`direccion_proveedor` = ?, `nombre_proveedor` = ?, `telefono_proveedor` = ? WHERE `proveedores`.`nitproveedor` = ?;";
+				sql = "UPDATE `productos` SET `nombre_producto` = ?,`precio_venta` = ? WHERE `productos`.`codigo_producto` = ?;";
 				ps = conec.prepareStatement(sql);
-				ps.setString(1, proveedor.getCiudad_proveedor());
-				ps.setString(2, proveedor.getDireccion_proveedor());
-				ps.setString(3, proveedor.getNombre_proveedor());
-				ps.setString(4, proveedor.getTelefono_proveedor());
-				ps.setLong(5, proveedor.getNitproveedor());
+				ps.setString(1, producto.getNombre_producto());
+				ps.setDouble(2, producto.getPrecio_venta());
+				ps.setLong(3, producto.getCodigo_producto());
 				// Si la consulta es exitosa
 				if(ps.executeUpdate()==1) {
 					// Mensaje success
 					list.add("success");
-					list.add("Usuario actualizado correctamente");
+					list.add("Producto actualizado correctamente");
 				} else {
 					// Mensaje de error
 					list.add("error");
-					list.add("Error al actualizar usuario");
+					list.add("Error al actualizar producto");
 				}
 			// Si hay error en el SQL	
 			}catch(SQLException e) {
@@ -211,43 +230,4 @@ public class ProveedorDAO {
 		return list;
 	}
 	
-	
-	/**
-	 * Eliminar clientes
-	 * @return List<String>
-	 */
-	public List<String> eliminar(ProveedorDTO proveedor) {
-		// Lista para retornar mensajes
-		List<String> list = new ArrayList<>();
-		// Recupero el valor de nit
-		long nit = proveedor.getNitproveedor();
-		// Si nit es 0, completar
-		if(nit==0) {
-			list.add("warning");
-			list.add("Complete todos los campos");
-		} else {
-			// Intentar SQL
-			try {
-				// Consulta y ejecucion
-				String sql = "DELETE FROM `proveedores` WHERE `proveedores`.`nitproveedor` = ?";
-				ps = conec.prepareStatement(sql);
-				ps.setLong(1, nit);
-				// Si se ejecuta correctamente
-				if(ps.executeUpdate()==1) {
-					list.add("success");
-					list.add("Usuario eliminado correctamente");
-				} else {
-					list.add("error");
-					list.add("Error al eliminar");
-				}
-			// Si hay error SQL
-			}catch(SQLException e) {
-				list.add("error");
-				list.add("Error: "+e);
-			}
-		}
-		// Retorno los mensajes
-		return list;
-	}
-
 }

@@ -18,6 +18,8 @@ public class ProveedorDTO {
 		this.telefono_proveedor = telefono_proveedor;
 	}
 
+	public ProveedorDTO() {
+	}
 
 	public long getNitproveedor() {
 		return nitproveedor;

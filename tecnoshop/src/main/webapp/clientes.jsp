@@ -6,7 +6,7 @@
 	Object usuario = (String) session.getAttribute("usuario");
 	if(usuario==null){
 		response.sendRedirect("./login.jsp");
-	}
+	} else {
 %>
 <!DOCTYPE html>
 <html>
@@ -35,9 +35,11 @@
       			</button>
       			<div class="collapse navbar-collapse" id="navbarsExample07XL">
         			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          				<% if(session.getAttribute("rol").equals("1")) { %>
           				<li class="nav-item">
 		          			<a class="nav-link" href="./usuarios.jsp">USUARIOS</a>
 		        		</li>
+          				<% } %>
 		        		<li class="nav-item">
 		          			<a class="nav-link active" href="./clientes.jsp">CLIENTES</a>
 		        		</li>
@@ -110,7 +112,7 @@
 				</div>
 			</div>
 		</div>
-		
+		<% } %>
 	</body>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>

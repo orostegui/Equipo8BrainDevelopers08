@@ -4,7 +4,9 @@ $(document).ready(function() {
 		
 	    $('#clientes').DataTable( {
 			ajax: {
-		        url: 'VerClientes',
+		        url: 'Clientes',
+				type: "POST",
+				data:  {'ini':true},
 		        dataSrc: ''
 		    },
 	        "columns": [
@@ -27,7 +29,7 @@ $(document).ready(function() {
  * FUNCION PARA CREAR CLIENTES EN LA BASE DE DATOS
  */
 
-$(document).on("click", "#crear", function(e) {
+$(document).on("click", "#crear", function() {
     
     (async() => {
         
@@ -84,9 +86,9 @@ $(document).on("click", "#crear", function(e) {
 
         if (formValues) {
 
-            const data = "cc="+formValues[0]+"&nc="+formValues[1]+"&em="+formValues[2]+"&dr="+formValues[3]+"&tf="+formValues[4];
+            const data = "cre="+true+"&cc="+formValues[0]+"&nc="+formValues[1]+"&em="+formValues[2]+"&dr="+formValues[3]+"&tf="+formValues[4];
 
-            $.post('CrearCliente', data, function(response) {
+            $.post('Clientes', data, function(response) {
 	                                    
                 if(response[0]=="success"){
                             
@@ -140,9 +142,9 @@ $(document).on("click", "#editar", function() {
 
         if (cc) {
         	
-			const data = "cc="+cc;
+			const data = "con="+true+"&cc="+cc;
                 
-			$.post('ConsultarCliente', data, function(response) {
+			$.post('Clientes', data, function(response) {
                     
             	if(response[0]=="success"){
 	
@@ -202,9 +204,9 @@ $(document).on("click", "#editar", function() {
 						
 						if (formValues) {
 	
-				            const data = "cc="+formValues[0]+"&nc="+formValues[1]+"&em="+formValues[2]+"&dr="+formValues[3]+"&tf="+formValues[4];
+				            const data = "edit="+true+"&cc="+formValues[0]+"&nc="+formValues[1]+"&em="+formValues[2]+"&dr="+formValues[3]+"&tf="+formValues[4];
 				
-				            $.post('EditarCliente', data, function(response) {
+				            $.post('Clientes', data, function(response) {
 					                                    
 				                if(response[0]=="success"){
 				                            
@@ -236,7 +238,7 @@ $(document).on("click", "#editar", function() {
                     Swal.fire({
                         icon:'error',
                         title:'<h2>Oops...</h2>',
-                        text:'Usuario no encontrado',
+                        text:'Cliente no encontrado',
 						confirmButtonText:'CERRAR',
                         confirmButtonColor:'#6e7d88',
                     })
@@ -273,9 +275,9 @@ $(document).on("click", "#borrar", function() {
 
         if (cc) {
         	
-			const data = "cc="+cc;
+			const data = "con="+true+"&cc="+cc;
                 
-			$.post('ConsultarCliente', data, function(response) {
+			$.post('Clientes', data, function(response) {
                     
             	if(response[0]=="success"){
                           
@@ -298,12 +300,14 @@ $(document).on("click", "#borrar", function() {
 					
                         if (result.isConfirmed) {
 	
-                            $.post('EliminarCliente', data, function(response) {
+							const del = "del="+true+"&cc="+cc;
+	
+                            $.post('Clientes', del, function(response) {
                                         
                                 if(response[0]=="success"){
                                             
                                     Swal.fire({
-                                        title: '<h2>Eliminado</h2>',
+                                        title: '<h2>ELIMINADO</h2>',
                                         text:response[1],
                                         icon:response[0],
                                         confirmButtonText: 'CERRAR',
@@ -315,7 +319,7 @@ $(document).on("click", "#borrar", function() {
                                 } else {
                                     
                                     Swal.fire({
-                                        title: '<h2>Error al eliminar el usuario</h2>',
+                                        title: '<h2>Error al eliminar el cliente</h2>',
                                         text: response[1],
                                         icon: response[0],
                                         confirmButtonText: 'CERRAR',
@@ -327,7 +331,7 @@ $(document).on("click", "#borrar", function() {
                             
                             Swal.fire({
                                 title: '<h2>CANCELADO</h2>',
-                                text:'La eliminación del usuario ha sido cancelada.',
+                                text:'La eliminación del cliente ha sido cancelada.',
                                 icon:'error',
                                 confirmButtonText: 'CERRAR',
                                 confirmButtonColor: '#6e7d88'	
@@ -338,7 +342,7 @@ $(document).on("click", "#borrar", function() {
                     Swal.fire({
                         icon:'error',
                         title:'<h2>Oops...</h2>',
-                        text:'Usuario no encontrado',
+                        text:'Cliente no encontrado',
 						confirmButtonText:'CERRAR',
                         confirmButtonColor:'#6e7d88',
                     })

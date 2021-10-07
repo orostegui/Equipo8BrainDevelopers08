@@ -6,7 +6,7 @@
 	Object usuario = (String) session.getAttribute("usuario");
 	if(usuario==null){
 		response.sendRedirect("./login.jsp");
-	}
+	} else {
 %>
 <!DOCTYPE html>
 <html>
@@ -33,6 +33,7 @@
 			  <div class="row">
 			    <div class="col-md-12">
 			    	<div class="row">
+			    	<% if(session.getAttribute("rol").equals("1")) { %>
 						<div class="col-2">
 							<div class="option-user" id="usuarios">
 								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
@@ -41,6 +42,7 @@
 								<p>USUARIOS</p>
 							</div>
 						</div>
+			    	<% } %>
 						<div class="col-2">
 							<div class="option-user" id="clientes">
 								<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
@@ -88,7 +90,7 @@
 				</div>
 			</div>
 		</div>
-		
+	<% } %>
 	</body>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
