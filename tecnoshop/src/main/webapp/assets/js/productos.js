@@ -1,6 +1,13 @@
+function actualizarPrecioVenta(compra){
+	utilidad = document.getElementById("utilidad").value;
+	pventa = document.getElementById("pventa");
+	res = parseInt(compra)+(parseInt(compra)*parseInt(utilidad)/100)
+	isNaN(res) ? res=compra : res 
+	pventa.value = res
+	console.log(res)
+}
+
 $(document).ready(function() {
-	
-	$(document).ready(function() {
 		
 	    $('#productos').DataTable( {
 			ajax: {
@@ -12,16 +19,17 @@ $(document).ready(function() {
 	        "columns": [
 	            { "data": "codigo_producto" },
 	            { "data": "nombre_producto" },
-	            { "data": "nitproveedor" },
+	            { "data": "nombre_proveedor" },
 	            { "data": "precio_compra" },
 				{ "data": "ivacompra" },
-				{ "data": "precio_venta" },
+				{ "data": "porcentaje_utilidad" },
+				{ "data": "precio_venta" }
 		        ],
 			"language": {
 	            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
 	        }
 		} );
-	} );
+		
 });
 
 
@@ -72,12 +80,13 @@ $("#upload-form").on("submit", function(e){
                     cache: false,
                     contentType: false,
                     processData: false,
-                    beforeSend : function (){
+                    beforeSend : function (e){
+						console.log(e)
                         Swal.fire({
                             title:'Actualizando la base de datos',
                             text:'No actualice la página hasta que se hayan cargado todos los datos.',
                             icon:'warning',
-                            showConfirmButton: false
+                            confirmButtonText: 'Cerrar',
                         })
                     }
                 })
@@ -127,7 +136,7 @@ $(document).on("click", "#editar", function() {
                 
 			$.post('Productos', data, function(response) {
                     
-            	if(response[0]=="success"){
+            	if(response[0]=="success"){	
 	
                 	(async() => {
 	
@@ -149,8 +158,14 @@ $(document).on("click", "#editar", function() {
 				                '</div>'+
 				                '<div class="col-6 mb-3">'+
 				                    '<div class="form-floating left-input">'+
-				                        '<input type="text" class="form-control" id="venta" placeholder="Precio Venta" value="'+response[3]+'">'+
-				                        '<label for="floatingPassword">Precio Venta</label>'+
+				                        '<input type="text" class="form-control" id="utilidad" placeholder="Porcentaje utilidad" value="'+response[4]+'" onkeyup="actualizarPrecioVenta('+response[3]+')">'+
+				                        '<label for="floatingPassword">Porcentaje utilidad</label>'+
+				                    '</div>'+
+				                '</div>'+
+								'<div class="col-6 mb-3">'+
+				                    '<div class="form-floating left-input">'+
+				                        '<input type="text" class="form-control" id="pventa" placeholder="Precio venta(Sin IVA)" value="'+calcularPrecioVenta(response[3],response[4])+'" disabled>'+
+				                        '<label for="floatingPassword">Precio venta(Sin IVA)</label>'+
 				                    '</div>'+
 				                '</div>'+
 				            '</div>',
@@ -164,14 +179,15 @@ $(document).on("click", "#editar", function() {
 				                return [
 				                    document.getElementById('cod').value,
 				                    document.getElementById('nombre').value,
-				                    document.getElementById('venta').value
+				                    document.getElementById('utilidad').value
 				                ]
 				            }
+
 					    })
 						
 						if (formValues) {
 	
-				            const data = "edit="+true+"&cod="+formValues[0]+"&nb="+formValues[1]+"&pv="+formValues[2];
+				            const data = "edit="+true+"&cod="+formValues[0]+"&nb="+formValues[1]+"&pu="+formValues[2];
 				
 				            $.post('Productos', data, function(response) {
 					                                    
@@ -198,6 +214,10 @@ $(document).on("click", "#editar", function() {
 				                }
 				            }); 
 				        }
+						
+						function calcularPrecioVenta(compra,utilidad){
+							return parseInt(compra)+(parseInt(compra)*parseInt(utilidad)/100)
+						}
 	
 					})();
                 	

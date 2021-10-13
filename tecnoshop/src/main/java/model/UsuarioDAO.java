@@ -51,6 +51,7 @@ public class UsuarioDAO {
 						list.add(res.getString(1));
 						list.add(res.getString(2));
 						list.add(res.getString(6));
+						list.add(res.getString(4));
 					// Password errada
 					} else {
 						list.add("error");

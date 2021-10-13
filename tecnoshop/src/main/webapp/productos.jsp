@@ -70,12 +70,13 @@
 						<table id="productos" class="display" style="width:100%">
 					        <thead>
 					            <tr>
-					                <th>Código</th>
-					                <th>Nombre</th>
-					                <th>NIT Proveedor</th>
-					                <th>Precio Compra</th>
-					                <th>IVA Compra</th>
-					                <th>Precio Venta</th>
+					                <th>Cod.</th>
+					                <th>Producto</th>
+					                <th>N. Proveedor</th>
+					                <th>P. Compra</th>
+					                <th>% IVA</th>
+					                <th>% Utilidad</th>
+					                <th>P. Venta(+IVA)</th>
 					            </tr>
 					        </thead>
 					    </table>

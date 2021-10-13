@@ -35,7 +35,7 @@ public class Productos extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		// TODO Auto-generated method stub
 		response.getWriter().append("<h1>NO DEBERIAS ESTAR AQUI<h1> <img src='./assets/img/no.gif'>");
 		
@@ -84,8 +84,14 @@ public class Productos extends HttpServlet {
 			resp = prodDAO.consultar(prodDTO);
 			list.add(resp.get(0));
 			list.add(resp.get(1));
-			list.add(resp.get(2));
-			list.add(resp.get(3));
+			
+			if(resp.get(0)=="success") {
+				
+				list.add(resp.get(2));
+				list.add(resp.get(3));
+				list.add(resp.get(4));
+			}
+			
 			// Convertir a JSON	y responder		
 			String json = new Gson().toJson(list);
 			response.getWriter().write(json);
@@ -96,11 +102,11 @@ public class Productos extends HttpServlet {
 			// Recupero los valores enviado en el formulario de editar producto
 			long cod = (request.getParameter("cod").isEmpty()) ? 0 : Long.parseLong(request.getParameter("cod"));
 			String nb = request.getParameter("nb");
-			double pv = (request.getParameter("pv").isEmpty()) ? 0 : Double.parseDouble(request.getParameter("pv"));
+			int pu = (request.getParameter("pu").isEmpty()) ? 0 : Integer.parseInt(request.getParameter("pu"));
 			// Guardamos los valores en el DTO
 			prodDTO.setCodigo_producto(cod);
 			prodDTO.setNombre_producto(nb);
-			prodDTO.setPrecio_venta(pv);
+			prodDTO.setPorcentaje_utilidad(pu);;
 			// Obtener y agregar resultados
 			resp = prodDAO.actualizar(prodDTO);	
 			list.add(resp.get(0));

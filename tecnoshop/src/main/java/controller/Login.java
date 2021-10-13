@@ -64,6 +64,7 @@ public class Login extends HttpServlet {
 				sesion.setAttribute("id", res.get(1));
 				sesion.setAttribute("rol", res.get(2));
 				sesion.setAttribute("usuario", res.get(3));
+				sesion.setAttribute("nombre", res.get(4));
 			}
 			
 			String json = new Gson().toJson(list);
