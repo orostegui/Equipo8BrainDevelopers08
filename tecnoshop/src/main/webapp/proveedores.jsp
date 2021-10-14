@@ -49,9 +49,15 @@
 		        		<li class="nav-item">
 		          			<a class="nav-link" href="./productos.jsp">PRODUCTOS</a>
 		        		</li>
-		        		<li class="nav-item">
-		          			<a class="nav-link" href="./ventas.jsp">VENTAS</a>
-		        		</li>
+		        		<li class="nav-item dropdown">
+				          	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+				            	VENTAS
+				          	</a>
+				          	<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+				          		<li><a class="dropdown-item" href="./ventas.jsp">Ver ventas</a></li>
+				            	<li><a class="dropdown-item" href="./nueva-venta.jsp">Nueva Venta</a></li>
+				          	</ul>
+				        </li>
 		        		<li class="nav-item">
 		          			<a class="nav-link" href="./reportes.jsp">REPORTES</a>
 		        		</li>

@@ -17,16 +17,16 @@ import model.VentasDAO;
 import model.VentasDTO;
 
 /**
- * Servlet implementation class Ventas
+ * Servlet implementation class RegistrarVenta
  */
-@WebServlet("/Ventas")
-public class Ventas extends HttpServlet {
+@WebServlet("/RegistrarVenta")
+public class RegistrarVenta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Ventas() {
+    public RegistrarVenta() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,9 +35,8 @@ public class Ventas extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		// TODO Auto-generated method stub
-		response.getWriter().append("<h1>NO DEBERIAS ESTAR AQUI<h1> <img src='./assets/img/no.gif'>");
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -45,31 +44,31 @@ public class Ventas extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		VentasDAO ventasDAO = new VentasDAO();
+		String jsonVenta = request.getParameter("datos");
 		
-		// Listas para recuperar la respues del DAO y enviar al JSP
+		VentasDAO ventaDAO = new VentasDAO();
+		HttpSession sesion = request.getSession();
+		
+		// Listas para recuperar la respuesta del DAO y enviar al JSP
 		List<String> list = new ArrayList<>();
-				
+		List<String> resp = new ArrayList<>();
+		
 		// Setear la respuesta
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
-		
-		HttpSession sesion = request.getSession();
-		Object usuario = (String) sesion.getAttribute("usuario");
-		if(usuario==null){
-			list.add("error");
-			list.add("No tienes una sesión válida, refresca e inicia sesión");
-			// Convertir a JSON	y responder		
-			String json = new Gson().toJson(list);
-			response.getWriter().write(json);
-			// Muestra inicial de usuarios, valida si viene declarado el ini	
-		} else if(Boolean.parseBoolean(request.getParameter("ini"))) {
-			
-			ArrayList<VentasDTO> res = ventasDAO.listar();
-			String jsonCLientes = new Gson().toJson(res);
-			response.getWriter().write(jsonCLientes);
-			
-		} 
+				
+		Gson gson = new Gson();
+	    VentasDTO ventaDTO = gson.fromJson(jsonVenta,VentasDTO.class);
+	    ventaDTO.setCedula_usuario(Long.parseLong((String) sesion.getAttribute("id")));
+	    // Obtener y agregar resultados
+	 	resp = ventaDAO.registrar(ventaDTO);	
+	 	
+	 	list.add(resp.get(0));
+		list.add(resp.get(1));
+	        
+	    // Convertir a JSON	y responder		
+	 	String json = new Gson().toJson(list);
+	 	response.getWriter().write(json);
 		
 	}
 

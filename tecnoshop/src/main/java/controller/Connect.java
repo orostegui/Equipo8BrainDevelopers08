@@ -3,6 +3,8 @@ package controller;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+import javax.swing.JOptionPane;
+
 public class Connect {
 	
 	private String bd="Grupo8_Equipo_8";
@@ -17,7 +19,7 @@ public class Connect {
             conn = DriverManager.getConnection(url,user,pass);
             //JOptionPane.showMessageDialog(null, "Conexión con BD exitosa");
         }catch(Exception e) {
-            //JOptionPane.showMessageDialog(null, "Error en la conexión: "+e);
+            JOptionPane.showMessageDialog(null, "Error en la conexión: "+e);
         }
         return conn;
     }

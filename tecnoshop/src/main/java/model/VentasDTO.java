@@ -1,55 +1,85 @@
 package model;
 
+import java.util.List;
+
 public class VentasDTO {
 	
-	private long codigo_venta;
-	private int cedula_cliente;
-	private int cedula_usuario;
-	private double ivaventa;
+	private int codigo_venta;
+	private long cedula_cliente;
+	private String nombre_cliente;
+	private long cedula_usuario;
+	private String nombre_usuario;
+	private int ivaventa;
 	private double total_venta;
 	private double valor_venta;
-	private String nombre_usuario;
-	private String nombre_cliente;
+	private List<DetalleVentaDTO> detalle_venta;
 	
-	public VentasDTO() {
-	}
-
-	public VentasDTO(long codigo_venta, double total_venta,  String nombre_usuario, String nombre_cliente) {
+	public VentasDTO(int codigo_venta, String nombre_cliente, String nombre_usuario, int ivaventa, double total_venta,
+			double valor_venta) {
 		this.codigo_venta = codigo_venta;
-		this.total_venta = total_venta;
-		this.nombre_usuario = nombre_usuario;
 		this.nombre_cliente = nombre_cliente;
+		this.nombre_usuario = nombre_usuario;
+		this.ivaventa = ivaventa;
+		this.total_venta = total_venta;
+		this.valor_venta = valor_venta;
 	}
 
-	public long getCodigo_venta() {
+	public VentasDTO(int codigo_venta, long cedula_cliente, long cedula_usuario, int ivaventa, double total_venta,
+			double valor_venta, List<DetalleVentaDTO> detalle_venta) {
+		this.codigo_venta = codigo_venta;
+		this.cedula_cliente = cedula_cliente;
+		this.cedula_usuario = cedula_usuario;
+		this.ivaventa = ivaventa;
+		this.total_venta = total_venta;
+		this.valor_venta = valor_venta;
+		this.detalle_venta = detalle_venta;
+	}
+
+	public int getCodigo_venta() {
 		return codigo_venta;
 	}
 
-	public void setCodigo_venta(long codigo_venta) {
+	public void setCodigo_venta(int codigo_venta) {
 		this.codigo_venta = codigo_venta;
 	}
 
-	public int getCedula_cliente() {
+	public long getCedula_cliente() {
 		return cedula_cliente;
 	}
 
-	public void setCedula_cliente(int cedula_cliente) {
+	public void setCedula_cliente(long cedula_cliente) {
 		this.cedula_cliente = cedula_cliente;
 	}
 
-	public int getCedula_usuario() {
+	public String getNombre_cliente() {
+		return nombre_cliente;
+	}
+
+	public void setNombre_cliente(String nombre_cliente) {
+		this.nombre_cliente = nombre_cliente;
+	}
+
+	public long getCedula_usuario() {
 		return cedula_usuario;
 	}
 
-	public void setCedula_usuario(int cedula_usuario) {
+	public void setCedula_usuario(long cedula_usuario) {
 		this.cedula_usuario = cedula_usuario;
 	}
 
-	public double getIvaventa() {
+	public String getNombre_usuario() {
+		return nombre_usuario;
+	}
+
+	public void setNombre_usuario(String nombre_usuario) {
+		this.nombre_usuario = nombre_usuario;
+	}
+
+	public int getIvaventa() {
 		return ivaventa;
 	}
 
-	public void setIvaventa(double ivaventa) {
+	public void setIvaventa(int ivaventa) {
 		this.ivaventa = ivaventa;
 	}
 
@@ -69,20 +99,12 @@ public class VentasDTO {
 		this.valor_venta = valor_venta;
 	}
 
-	public String getNombre_cliente() {
-		return nombre_cliente;
+	public List<DetalleVentaDTO> getDetalle_venta() {
+		return detalle_venta;
 	}
 
-	public void setNombre_cliente(String nombre_cliente) {
-		this.nombre_cliente = nombre_cliente;
+	public void setDetalle_venta(List<DetalleVentaDTO> detalle_venta) {
+		this.detalle_venta = detalle_venta;
 	}
 
-	public String getNombre_usuario() {
-		return nombre_usuario;
-	}
-
-	public void setNombre_usuario(String nombre_usuario) {
-		this.nombre_usuario = nombre_usuario;
-	}
-	
 }
