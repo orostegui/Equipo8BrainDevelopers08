@@ -36,6 +36,7 @@ public class VentasDAO {
 				VentasDTO venta = new VentasDTO(res.getInt("codigo_venta"), res.getString("nombre_cliente"), res.getString("nombre_usuario"), res.getInt("ivaventa"), res.getDouble("total_venta"), res.getDouble("valor_venta"));
 				ventas.add(venta);
 			}
+			conec.close();
 		}catch(SQLException e) {
 			// Si hay error en SQL
 		}
@@ -83,6 +84,7 @@ public class VentasDAO {
 	    			list.add("Venta registrada correctamente");
 	            }
 	        }
+	        conec.close();
 			// Si hay error en el SQL	
 		}catch(SQLException e) {
 			list.add("error");

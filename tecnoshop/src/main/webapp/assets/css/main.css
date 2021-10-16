@@ -152,3 +152,7 @@ a{
 tfoot > tr{
 	border-style:none;
 }
+
+div.dataTables_wrapper div.dataTables_filter input{
+	width: 200px;
+}

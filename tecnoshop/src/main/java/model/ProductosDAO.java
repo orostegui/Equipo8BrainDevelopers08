@@ -41,6 +41,7 @@ public class ProductosDAO {
 				ProductosDTO producto = new ProductosDTO(res.getLong("codigo_producto"), res.getInt("ivacompra"), res.getString("nombre_proveedor"), res.getString("nombre_producto"),res.getDouble("precio_compra"),res.getInt("porcentaje_utilidad"),precio_venta);
 				productos.add(producto);
 			}
+			conec.close();
 		}catch(SQLException e) {
 			// Si hay error en SQL
 		}
@@ -67,6 +68,7 @@ public class ProductosDAO {
 				list.add("Productos cargados correctamente");
 				// Error, no encontrado
 			} 
+			conec.close();
 		// Si hay error en el SQL	
 		}catch(SQLException e) {
 			list.add("error");
@@ -110,6 +112,7 @@ public class ProductosDAO {
 					list.add("error");
 					list.add("Producto no encontrado");
 				}
+				conec.close();
 			// Si hay error en el SQL	
 			}catch(SQLException e) {
 				list.add("error");
@@ -154,6 +157,7 @@ public class ProductosDAO {
 					list.add("error");
 					list.add("Error al actualizar producto");
 				}
+				conec.close();
 			// Si hay error en el SQL	
 			}catch(SQLException e) {
 				list.add("error");

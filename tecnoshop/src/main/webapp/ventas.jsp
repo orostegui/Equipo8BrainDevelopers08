@@ -85,6 +85,12 @@
 					                <th>Total</th>
 					            </tr>
 					        </thead>
+					        <tfoot>
+					            <tr>
+					                <th colspan="5" style="text-align:right">Total:</th>
+					                <th></th>
+					            </tr>
+					        </tfoot>
 					    </table>
 					</div>
 				</div>

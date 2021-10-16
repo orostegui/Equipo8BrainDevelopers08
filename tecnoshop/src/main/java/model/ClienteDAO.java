@@ -35,6 +35,7 @@ public class ClienteDAO {
 				ClienteDTO cliente = new ClienteDTO(res.getLong("cedula_cliente"), res.getString("direccion_cliente"), res.getString("email_cliente"), res.getString("nombre_cliente"), res.getString("telefono_cliente"));
 				clientes.add(cliente);
 			}
+			conec.close();
 		}catch(SQLException e) {
 			// Si hay error en SQL
 		}
@@ -109,6 +110,7 @@ public class ClienteDAO {
 						}
 					}
 				}
+				conec.close();
 			// Error en el SQL	
 			}catch(SQLException e) {
 				// Muestra error
@@ -163,6 +165,7 @@ public class ClienteDAO {
 					list.add("");
 					list.add("");
 				}
+				conec.close();
 			// Si hay error en el SQL	
 			}catch(SQLException e) {
 				list.add("error");
@@ -213,6 +216,7 @@ public class ClienteDAO {
 					list.add("error");
 					list.add("Error al actualizar usuario");
 				}
+				conec.close();
 			// Si hay error en el SQL	
 			}catch(SQLException e) {
 				list.add("error");
@@ -252,6 +256,7 @@ public class ClienteDAO {
 					list.add("error");
 					list.add("Error al eliminar");
 				}
+				conec.close();
 			// Si hay error SQL
 			}catch(SQLException e) {
 				list.add("error");

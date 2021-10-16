@@ -69,10 +69,59 @@
   		
   		<div class="container-xl main-content">
 			  <div class="row">
-			    <div class="col-md-12">
+			  	<% if(session.getAttribute("rol").equals("1")) { %>
+			    <div class="col-md-6">
 			    	<div class="bg-light table">
-			    		<h1>EN CONSTRUCCIÓN</h1>
+			    		<h2>USUARIOS</h2>
+						<table id="usuarios" class="display" style="width:100%">
+					        <thead>
+					            <tr>
+					                <th>N° Cédula</th>
+					                <th>Nombre</th>
+					                <th>Email</th>
+					                <th>Usuario</th>
+					            </tr>
+					        </thead>
+					    </table>
 				    </div>
+				</div>
+				<% } %>
+				<div class="col-md-6">
+					<div class="bg-light table">
+				    	<h2>CLIENTES</h2>
+						<table id="clientes" class="display" style="width:100%">
+							<thead>
+						    	<tr>
+						        	<th>N° Cédula</th>
+						            <th>Nombre</th>
+						            <th>Dirección</th>
+						            <th>Teléfono</th>
+						        </tr>
+						    </thead>
+						</table>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="bg-light table">
+				    	<h2>VENTAS</h2>
+						<table id="ventas" class="display" style="width:100%">
+							<thead>
+						    	<tr>
+						        	<th>Cédula</th>
+						            <th>Cliente</th>
+						            <th>Subtotal</th>
+						            <th>Iva</th>
+						            <th>Total</th>
+						        </tr>
+						    </thead>
+						    <tfoot>
+						    	<tr>
+						        	<th colspan="4" style="text-align:right">Total:</th>
+						            <th></th>
+						        </tr>
+						    </tfoot>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -82,4 +131,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/v/bs5/dt-1.11.3/datatables.min.js"></script>
+    <script src="./assets/js/reportes.js"></script>
 </html>

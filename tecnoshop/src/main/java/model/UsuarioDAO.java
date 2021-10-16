@@ -62,6 +62,7 @@ public class UsuarioDAO {
 					list.add("error");
 					list.add("Usuario no registrado");
 				}
+				conec.close();
 			// Error en SQL
 			}catch(SQLException e) {
 				list.add("error");
@@ -112,6 +113,7 @@ public class UsuarioDAO {
 					list.add("");
 					list.add("");
 				}
+				conec.close();
 			// Si hay error en el SQL	
 			}catch(SQLException e) {
 				list.add("error");
@@ -156,7 +158,7 @@ public class UsuarioDAO {
 						list.add("Usuario no encontrado");
 						
 					}
-					
+					conec.close();
 				}catch(SQLException e) {
 					
 					list.add("error");
@@ -244,7 +246,7 @@ public class UsuarioDAO {
 					}
 					
 				}
-				
+				conec.close();
 			}catch(SQLException e) {
 				
 				list.add("error");
@@ -275,7 +277,7 @@ public class UsuarioDAO {
 					usuarios.add(user);
 				}
 			}
-			
+			conec.close();
 		}catch(SQLException e) {
 			
 		}
@@ -329,7 +331,7 @@ public class UsuarioDAO {
 					list.add("Error al actualizar usuario");
 					
 				}
-				
+				conec.close();
 			}catch(SQLException e) {
 				
 				list.add("error");

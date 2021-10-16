@@ -35,6 +35,7 @@ public class ProveedorDAO {
 				ProveedorDTO proveedor = new ProveedorDTO(res.getLong("nitproveedor"), res.getString("ciudad_proveedor"), res.getString("direccion_proveedor"), res.getString("nombre_proveedor"), res.getString("telefono_proveedor"));
 				proveedores.add(proveedor);
 			}
+			conec.close();
 		}catch(SQLException e) {
 			// Si hay error en SQL
 		}
@@ -97,6 +98,7 @@ public class ProveedorDAO {
 						}
 					}
 				}
+				conec.close();
 			// Error en el SQL	
 			}catch(SQLException e) {
 				// Muestra error
@@ -151,6 +153,7 @@ public class ProveedorDAO {
 					list.add("");
 					list.add("");
 				}
+				conec.close();
 			// Si hay error en el SQL	
 			}catch(SQLException e) {
 				list.add("error");
@@ -201,6 +204,7 @@ public class ProveedorDAO {
 					list.add("error");
 					list.add("Error al actualizar usuario");
 				}
+				conec.close();
 			// Si hay error en el SQL	
 			}catch(SQLException e) {
 				list.add("error");
@@ -240,6 +244,7 @@ public class ProveedorDAO {
 					list.add("error");
 					list.add("Error al eliminar");
 				}
+				conec.close();
 			// Si hay error SQL
 			}catch(SQLException e) {
 				list.add("error");
